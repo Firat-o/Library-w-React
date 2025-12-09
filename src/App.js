@@ -1,29 +1,35 @@
-import Nav from "./components/Nav.jsx";
-import Footer from "./components/Footer.jsx";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import Books from "./pages/Books";
-import { books } from "./data";
-import BookInfo from "./pages/BookInfo.jsx";
-import Cart from "./pages/Cart.jsx";
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Books from "./pages/Books";
+import BookInfo from "./pages/BookInfo";
+import Cart from "./pages/Cart";
+import { books } from "./data";
 
 function App() {
   const [cart, setCart] = useState([]);
 
   function addToCart(book) {
-    setCart([...cart, { ...book, quantity: 1 }]);
+    const dupeItem = cart.find((item) => item.id === book.id);
+    if (dupeItem) {
+      setCart(
+        cart.map((item) =>
+          item.id === dupeItem.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+    } else {
+      setCart([...cart, { ...book, quantity: 1 }]);
+    }
   }
 
   function changeQuantity(book, quantity) {
     setCart(
       cart.map((item) =>
-        item.id === book.id
-          ? {
-              ...item,
-              quantity: +quantity,
-            }
-          : item
+        item.id === book.id ? { ...item, quantity: +quantity } : item
       )
     );
   }
@@ -33,46 +39,13 @@ function App() {
   }
 
   function numberOfItems() {
-    let counter = 0;
-    cart.forEach(item => {
-      counter += item.quantity
-    })
-    return counter
+    return cart.reduce((acc, item) => acc + item.quantity, 0);
   }
-
-
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
-
-  // this is the original code for the addToCart function
-  // const dupeItem = cart.find((item) => +item.id === +book.id);
-  // if (dupeItem) {
-  //   setCart(
-  //     cart.map((item) => {
-  //       if (item.id === dupeItem.id) {
-  //         return {
-  //           ...item,
-  //           quantity: item.quantity + 1,
-  //         };
-  //       } else {
-  //         return item;
-  //       }
-  //     })
-  //   );
-  // } else {
-  //     setCart([...cart, {...book, quantity: 1}]);
-
-  // }
-
-  // useEffect(() => {
-  //   console.log(cart);
-  // }, [cart]);
 
   return (
     <Router>
       <div className="App">
-        <Nav numberOfItems={numberOfItems()}/>
+        <Nav numberOfItems={numberOfItems()} />
         <Route path="/" exact component={Home} />
         <Route path="/books" exact render={() => <Books books={books} />} />
         <Route
