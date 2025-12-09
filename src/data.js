@@ -54,7 +54,7 @@ export const books = [
   },
   {
     id: 6,
-    title: "Sell Or Be Sold",
+    title: "Max Payne",
     url: Book1,
     originalPrice: 70,
     salePrice: 12.5,
