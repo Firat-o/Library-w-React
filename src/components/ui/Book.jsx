@@ -5,16 +5,12 @@ import Price from "./Price";
 
 const Book = ({ book }) => {
   const [img, setImg] = useState();
-
-  // Wir initialisieren es nicht direkt mit true, sondern setzen es im Effect
-  const mountedRef = useRef(true); 
+  const mountedRef = useRef(true);
 
   useEffect(() => {
     const image = new Image();
+    mountedRef.current = true;
     image.src = book.url;
-    
-    // WICHTIG: Ref beim Start des Effekts auf true setzen
-    mountedRef.current = true; 
 
     image.onload = () => {
       setTimeout(() => {
@@ -24,11 +20,16 @@ const Book = ({ book }) => {
       }, 300);
     };
 
+    image.onerror = () => {
+      if (mountedRef.current) {
+        setImg(image);
+      }
+    };
+
     return () => {
-      // Wenn die Komponente stirbt, auf false setzen
       mountedRef.current = false;
     };
-  }, [book.url]); // <--- HIER WAR DAS PROBLEM: Das Array fehlte!
+  }, [book.url]);
 
   return (
     <div className="book">
