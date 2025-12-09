@@ -5,10 +5,17 @@ import Price from "./Price";
 
 const Book = ({ book }) => {
   const [img, setImg] = useState();
+  
+  // Ref initialisieren
   const mountedRef = useRef(true);
 
   useEffect(() => {
     const image = new Image();
+    
+    // WICHTIG: Bei jedem Effekt-Start sicherstellen, dass wir "gemounted" sind
+    // Das fixt Probleme mit React Strict Mode (Mount -> Unmount -> Mount)
+    mountedRef.current = true;
+    
     image.src = book.url;
     image.onload = () => {
       setTimeout(() => {
@@ -17,7 +24,9 @@ const Book = ({ book }) => {
         }
       }, 300);
     };
+    
     return () => {
+      // Cleanup: Wenn Komponente wirklich stirbt, auf false setzen
       mountedRef.current = false;
     };
   }, [book.url]);
