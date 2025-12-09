@@ -5,18 +5,17 @@ import Price from "./Price";
 
 const Book = ({ book }) => {
   const [img, setImg] = useState();
-  
-  // Ref initialisieren
-  const mountedRef = useRef(true);
+
+  // Wir initialisieren es nicht direkt mit true, sondern setzen es im Effect
+  const mountedRef = useRef(true); 
 
   useEffect(() => {
     const image = new Image();
-    
-    // WICHTIG: Bei jedem Effekt-Start sicherstellen, dass wir "gemounted" sind
-    // Das fixt Probleme mit React Strict Mode (Mount -> Unmount -> Mount)
-    mountedRef.current = true;
-    
     image.src = book.url;
+    
+    // WICHTIG: Ref beim Start des Effekts auf true setzen
+    mountedRef.current = true; 
+
     image.onload = () => {
       setTimeout(() => {
         if (mountedRef.current) {
@@ -24,12 +23,12 @@ const Book = ({ book }) => {
         }
       }, 300);
     };
-    
+
     return () => {
-      // Cleanup: Wenn Komponente wirklich stirbt, auf false setzen
+      // Wenn die Komponente stirbt, auf false setzen
       mountedRef.current = false;
     };
-  }, [book.url]);
+  }, [book.url]); // <--- HIER WAR DAS PROBLEM: Das Array fehlte!
 
   return (
     <div className="book">
