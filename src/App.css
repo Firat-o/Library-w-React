@@ -1,38 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #2b2b2b;
+  --secondary-color: #d4a373;
+  --accent-color: #ccd5ae;
+  --background-color: #fdfbf7;
+  --card-bg: #ffffff;
+  --text-main: #333333;
+  --text-light: #666666;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
 .App {
-  text-align: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.nav__logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav__links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav__link:hover {
+  color: var(--secondary-color);
+}
+
+.nav__cart {
+  position: relative;
+  cursor: pointer;
+}
+
+.cart__length {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: 0.7rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+#books {
+  padding: 2rem 0 5rem;
+}
+
+.row {
+  width: 100%;
+}
+
+.section__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.section__title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--secondary-color);
+  margin: 10px auto 0;
+}
+
+.books__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2.5rem;
+  justify-items: center;
+}
+
+.book {
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.book:hover {
+  transform: translateY(-5px);
+}
+
+.book__img--wrapper {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
+  aspect-ratio: 2/3;
+  background-color: #eee;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.book:hover .book__img--wrapper {
+  box-shadow: var(--shadow-md);
+}
+
+.book__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+  line-height: 1.3;
+}
+
+.book__ratings {
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+}
+
+.book__price {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.book__price--normal {
+  text-decoration: line-through;
+  color: #b0b0b0;
+  margin-right: 10px;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.book__price--sale {
+  color: #d55b5b;
+}
+
+button.btn {
+  background-color: var(--primary-color);
   color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+button.btn:hover {
+  background-color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 768px) {
+  .section__title {
+    font-size: 2rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .books__container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .books__container {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav__links {
+    display: none;
   }
 }
