@@ -5,26 +5,27 @@ import { Link } from "react-router-dom";
 
 const Nav = ({ numberOfItems }) => {
   function openMenu() {
-    document.body.classList += " menu--open";
+    document.body.classList.add("menu--open");
   }
+
   function closeMenu() {
-    document.body.classList -= "menu--open";
+    document.body.classList.remove("menu--open");
   }
 
   return (
     <nav>
       <div className="nav__container">
         <Link to="/">
-        <img src={LibraryLogo} alt="Library Logo" className="logo custom-logo" />
+          <img src={LibraryLogo} alt="Library Logo" className="logo" />
         </Link>
         <ul className="nav__links">
-          <li className="nav__list">
+          <li>
             <Link to="/" className="nav__link">
               Home
             </Link>
           </li>
-          <li className="nav__list">
-            <Link to="/books" className="nav__link">
+          <li>
+            <Link to="/books" className="nav__link nav__link--primary">
               Books
             </Link>
           </li>
@@ -45,18 +46,18 @@ const Nav = ({ numberOfItems }) => {
             <FontAwesomeIcon icon="times" />
           </button>
           <ul className="menu__links">
-            <li className="menu__list">
-              <Link to="/" className="menu__link">
+            <li>
+              <Link to="/" className="menu__link" onClick={closeMenu}>
                 Home
               </Link>
             </li>
-            <li className="menu__list">
-              <Link to="/" className="menu__link">
+            <li>
+              <Link to="/books" className="menu__link" onClick={closeMenu}>
                 Books
               </Link>
             </li>
-            <li className="menu__list">
-              <Link to="/" className="menu__link">
+            <li>
+              <Link to="/cart" className="menu__link" onClick={closeMenu}>
                 Cart
               </Link>
             </li>
