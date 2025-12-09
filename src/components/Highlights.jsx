@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import Highlight from "../components/ui/Highlight.jsx";
+import Highlight from "./ui/Highlight";
 
 const Highlights = () => {
   return (
@@ -8,25 +8,24 @@ const Highlights = () => {
       <div className="container">
         <div className="row">
           <h2 className="section__title">
-            You know <span className="blue">nothing but everything</span>
+            Why choose <span style={{ color: "#d4a373" }}>Library</span>
           </h2>
           <div className="highlight__wrapper">
             <Highlight
               icon={<FontAwesomeIcon icon="bolt" />}
-              title="Fast Access"
-              para="Purchase and read online instantly!"
+              title="Easy and Quick"
+              para="Get access to the book you purchased online instantly."
             />
             <Highlight
               icon={<FontAwesomeIcon icon="book-open" />}
-              title="Minute learning"
-              para="Press and learn!"
+              title="10,000+ Books"
+              para="Library has books in all your favorite categories."
             />
             <Highlight
               icon={<FontAwesomeIcon icon="tags" />}
-              title="Worthy"
-              para="You can start for free and end worthy!"
+              title="Affordable"
+              para="Get your hands on popular books for as little as $10."
             />
-           
           </div>
         </div>
       </div>
